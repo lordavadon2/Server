@@ -11,14 +11,9 @@ public class FileOperations {
     IOFileOperation fileOperation;
     PathOp path;
 
-    public FileOperations(String startPath, PathOp path) {
+    public FileOperations(PathOp path) {
         this.path = path;
         this.fileOperation = new IOFileOperation();
-
-        File folder = new File(startPath);
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
     }
 
     public String createFile(String pathname){

@@ -16,12 +16,14 @@ public class ConnectionHandler implements Runnable{
     Socket socket;
     String data;
     String[] parse;
-    private static String PATH = "C:\\Test";
+    String path;
 
-    public ConnectionHandler(Socket socket)
+
+    public ConnectionHandler(Socket socket, String path)
     {
         this.socket = socket;
         parse = new String[3];
+        this.path = path;
     }
 
     @Override
@@ -29,10 +31,10 @@ public class ConnectionHandler implements Runnable{
         try {
             String result = "";
             InputStreamReader stream = new InputStreamReader(socket.getInputStream());
-            PathOp op = new PathOp(PATH);
+            PathOp op = new PathOp(path);
             DirView view = new DirView(op);
-            DirOperation dir = new DirOperation(PATH, op);
-            FileOperations file = new FileOperations(PATH, op);
+            DirOperation dir = new DirOperation(op);
+            FileOperations file = new FileOperations(op);
             BufferedReader reader = new BufferedReader(stream);
             PrintWriter pr = new PrintWriter(socket.getOutputStream(), true);
             while (socket.isConnected()) {

@@ -7,13 +7,8 @@ public class DirOperation {
 
     PathOp path;
 
-    public DirOperation(String startPath, PathOp path) {
+    public DirOperation(PathOp path) {
         this.path = path;
-
-        File folder = new File(startPath);
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
     }
 
     public String createDir(String pathname){
