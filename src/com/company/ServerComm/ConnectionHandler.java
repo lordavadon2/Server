@@ -38,6 +38,34 @@ public class ConnectionHandler implements Runnable{
             while (socket.isConnected()) {
                 data = reader.readLine();
                 parse = data.split("#");
+                synchronized (file){
+                    switch (parse[0]){
+                        case "show":
+                            result = view.getListOfFAD(parse[1]);
+                            break;
+                        case "fcreate":
+                            result = file.createFile(parse[1]);
+                            break;
+                        case "fchange":
+                            result = file.changeFile(parse[1], parse[2]);
+                            break;
+                        case "fshow":
+                            result = file.showFile(parse[1]);
+                            break;
+                        case "frem":
+                            result = file.delFile(parse[1]);
+                            break;
+                        case "dcreate":
+                            result = dir.createDir(parse[1]);
+                            break;
+                        case "drem":
+                            result = dir.delDir(parse[1]);
+                            break;
+                        default: break;
+                    }
+                }
+
+/*
                 if ("show".equals(parse[0])) {
                     result = view.getListOfFAD(parse[1]);
                 }
@@ -59,6 +87,7 @@ public class ConnectionHandler implements Runnable{
                 if ("drem".equals(parse[0])) {
                     result = dir.delDir(parse[1]);
                 }
+*/
                 pr.println(result);
             }
             socket.close();
