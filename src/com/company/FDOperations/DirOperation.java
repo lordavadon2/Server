@@ -1,16 +1,16 @@
 package com.company.FDOperations;
 
-import java.io.File;
 import java.io.IOException;
 
-public class DirOperation {
+public class DirOperation implements IDirOperation {
 
-    PathOp path;
+    IPathOp path;
 
-    public DirOperation(PathOp path) {
+    public DirOperation(IPathOp path) {
         this.path = path;
     }
 
+    @Override
     public String createDir(String pathname){
         try {
             path.getPathDir(pathname);
@@ -21,6 +21,7 @@ public class DirOperation {
         }
     }
 
+    @Override
     public String delDir(String pathname){
         try {
             path.getPathFile(pathname);

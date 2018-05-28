@@ -7,11 +7,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IOFileOperation {
+public class IOFileOperation implements IIOFileOperation {
 
     public IOFileOperation() {
     }
 
+    @Override
     public boolean writeToFile(String path, List<String> data)throws IOException{
         FileWriter writer = new FileWriter(path, false);
             writer.write(listToString(data, "\n"));
@@ -20,17 +21,20 @@ public class IOFileOperation {
             return true;
     }
 
+    @Override
     public String stringFromFile(String path) throws IOException {
         List<String> fis = readFromFile(path);
         return listToString(fis, "#");
     }
 
-    public List<String> readFromFile (String path)throws IOException{
+    @Override
+    public List<String> readFromFile(String path)throws IOException{
         return Files.readAllLines(Paths.get(path));
 
     }
 
-    private String listToString(List<String> fis, String regex){
+    @Override
+    public String listToString(List<String> fis, String regex){
         StringBuilder builder = new StringBuilder();
         for (String str: fis) {
             builder.append(str + regex);

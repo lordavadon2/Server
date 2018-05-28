@@ -2,20 +2,19 @@ package com.company.FDOperations;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class FileOperations {
+public class FileOperations implements IFileOperations {
 
-    IOFileOperation fileOperation;
-    PathOp path;
+    IIOFileOperation fileOperation;
+    IPathOp path;
 
-    public FileOperations(PathOp path) {
+    public FileOperations(IPathOp path) {
         this.path = path;
         this.fileOperation = new IOFileOperation();
     }
 
+    @Override
     public String createFile(String pathname){
             File file = new File(path.getPath(pathname));
             if (!file.exists()) {
@@ -30,6 +29,7 @@ public class FileOperations {
         return "Файл уже существует";
     }
 
+    @Override
     public String changeFile(String pathname, String data){
         List<String> temp;
         try {
@@ -42,6 +42,7 @@ public class FileOperations {
         }
     }
 
+    @Override
     public String showFile(String pathname){
         try {
             return fileOperation.stringFromFile(path.getPath(pathname));
@@ -50,6 +51,7 @@ public class FileOperations {
         }
     }
 
+    @Override
     public String delFile(String pathname){
         try {
             path.getPathFile(pathname);

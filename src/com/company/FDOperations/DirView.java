@@ -6,19 +6,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DirView {
+public class DirView implements IDirView {
 
     List<String> fileValue;
     File[] files;
-    PathOp path;
+    IPathOp path;
 
-    public DirView(PathOp path) {
+    public DirView(IPathOp path) {
         this.files = null;
         this.fileValue = new ArrayList<>();
         this.path = path;
     }
 
-    private String listToString(){
+    @Override
+    public String listToString(){
         StringBuilder sb = new StringBuilder("");
         for (File f: files) {
             sb.append("\\" + f.getName() + "#");
@@ -26,6 +27,7 @@ public class DirView {
         return sb.toString();
     }
 
+    @Override
     public String getListOfFAD(String pathname){
         try {
             path.getPathFile(pathname);

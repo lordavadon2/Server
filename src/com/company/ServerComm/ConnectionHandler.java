@@ -1,9 +1,6 @@
 package com.company.ServerComm;
 
-import com.company.FDOperations.DirOperation;
-import com.company.FDOperations.DirView;
-import com.company.FDOperations.FileOperations;
-import com.company.FDOperations.PathOp;
+import com.company.FDOperations.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,10 +28,10 @@ public class ConnectionHandler implements Runnable{
         try {
             String result = "";
             InputStreamReader stream = new InputStreamReader(socket.getInputStream());
-            PathOp op = new PathOp(path);
-            DirView view = new DirView(op);
-            DirOperation dir = new DirOperation(op);
-            FileOperations file = new FileOperations(op);
+            IPathOp op = new PathOp(path);
+            IDirView view = new DirView(op);
+            IDirOperation dir = new DirOperation(op);
+            IFileOperations file = new FileOperations(op);
             BufferedReader reader = new BufferedReader(stream);
             PrintWriter pr = new PrintWriter(socket.getOutputStream(), true);
             while (socket.isConnected()) {
@@ -66,30 +63,6 @@ public class ConnectionHandler implements Runnable{
                         default: break;
                     }
                 }
-
-/*
-                if ("show".equals(parse[0])) {
-                    result = view.getListOfFAD(parse[1]);
-                }
-                if ("fcreate".equals(parse[0])) {
-                    result = file.createFile(parse[1]);
-                }
-                if ("fchange".equals(parse[0])) {
-                    result = file.changeFile(parse[1], parse[2]);
-                }
-                if ("fshow".equals(parse[0])) {
-                    result = file.showFile(parse[1]);
-                }
-                if ("frem".equals(parse[0])) {
-                    result = file.delFile(parse[1]);
-                }
-                if ("dcreate".equals(parse[0])) {
-                    result = dir.createDir(parse[1]);
-                }
-                if ("drem".equals(parse[0])) {
-                    result = dir.delDir(parse[1]);
-                }
-*/
                 pr.println(result);
             }
             socket.close();

@@ -22,9 +22,8 @@ public class ServerClass implements Runnable{
 
     @Override
     public void run() {
-            while (true)
-            try
-            {
+        while (true) {
+            try {
                 socket = listener.accept();
                 System.out.println("Новый клиент: " + socket.getInetAddress());
                 ConnectionHandler connect = new ConnectionHandler(socket, PATH);
@@ -33,5 +32,6 @@ public class ServerClass implements Runnable{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
     }
 }
